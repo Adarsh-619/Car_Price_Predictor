@@ -7,7 +7,9 @@ from datetime import date
 model = pickle.load(open('Car_Predictor.pkl', 'rb'))
 # model = load('Car_Predict.joblib') 
 
-def main():
+def pageLoadup():
+
+    # Basic details about the page
     title = "Car Price Predictor"
     st.set_page_config(page_title=title, page_icon="🏎️")
     st.title("🏎️ Car Price Predictor 🏎️")
@@ -16,6 +18,76 @@ def main():
     st.write('')
     st.write('')
 
+    # Hiding the Streamlit header and footer
+    hide_st_style = """
+                <style>
+                    #MainMenu {visibility: hidden;}
+                    footer {visibility: hidden;}
+                    header {visibility: hidden;}
+                    footer:after {
+                        content:'© Adarsh-619'; 
+                        visibility: visible;
+                        display: block;
+                        text-align: center;
+                        font-size: 20px;
+                        position: relative;
+                        #background-color: red;
+                        padding: 10px;
+                        top: 2px;
+                    }
+                </style>
+                """
+    st.markdown(hide_st_style, unsafe_allow_html=True)
+
+def stylingComponents():
+        # div.stAlert {
+    #     background-color: #72CC50;
+    #     border: 1px solid black;
+    #     opacity: 0.3;
+    # }
+
+    btn_st = """
+            <style>
+                #car-price-predictor{
+                    text-align: center;
+                    color: white;
+                }
+
+                #are-you-planning-to-sell-you-car, #use-me-to-know-your-best-worth{
+                    color: white;
+                }
+
+                .stApp{
+                   background-color: #282C34; 
+                }
+
+                .stButton > button{
+                    background-color: #61AFEF;
+                    color: white;
+                    font-size: 25px;
+                    margin-left: 35%;
+                    margin-top: 3%;
+                }
+
+                .stNumberInput > label, .stRadio > label, .stSelectbox > label  {
+                    font-size: 20px;
+                    color: white;
+                }
+                .st-d1 {
+                    font-size: 20px;
+                    color: white;
+                }
+
+                div.stAlert p {
+                    font-weight: bold;
+                    color: #FFE77AFF;
+                }
+            </style>
+            """
+    
+    st.markdown(btn_st, unsafe_allow_html=True)
+
+def inputData():
     Years = st.number_input("In which year the car was purchased?", 1990, date.today().year, step=1, key='year')
     
     Present_Price = st.number_input('What is the current ex-showroom price of the car ?  (In ₹lakhs)', 0.00, 50.00, step=0.5, key ='present_price')
@@ -45,7 +117,7 @@ def main():
         Transmission = 1
 
 
-    if(st.button("Estimate Price", key="predict")):
+    if(st.button("Estimate Price", key="predict", )):
         try:
             prediction = model.predict([[Years, Present_Price, Kms_Driven, Fuel_Type, Seller_Type, Transmission, Owner]])
             output = round(prediction[0], 2)
@@ -57,6 +129,11 @@ def main():
         except:
             st.warning("Oops🙄 Something went wrong\nPlease Try Again")
 
+
+def main():
+    pageLoadup()
+    stylingComponents()
+    inputData()
 
 
 if __name__ == "__main__":
