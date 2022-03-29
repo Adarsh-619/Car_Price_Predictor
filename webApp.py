@@ -12,8 +12,9 @@ def pageLoadup():
     # Basic details about the page
     title = "Car Price Predictor"
     st.set_page_config(page_title=title, page_icon="🏎️")
-    st.title("🏎️ Car Price Predictor 🏎️")
-    st.markdown("#### Are you planning to sell you car ?\n#### Use me to know your best worth!!!")
+    st.title("🏎️ Car Price Predictor 🏎️", anchor=None)
+    st.subheader("Are you planning to sell you car ?", anchor=None)
+    st.subheader("Use me to know your best worth!!!", anchor=None)
     st.image("./assets/image.png")
     st.write('')
     st.write('')
@@ -31,10 +32,11 @@ def pageLoadup():
                         text-align: center;
                         font-size: 20px;
                         position: relative;
-                        #background-color: red;
+                        color: white;
                         padding: 10px;
                         top: 2px;
                     }
+                    button[title="View fullscreen"] {visibility: hidden;}
                 </style>
                 """
     st.markdown(hide_st_style, unsafe_allow_html=True)
