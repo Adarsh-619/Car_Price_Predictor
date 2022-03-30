@@ -14,6 +14,7 @@ from PyQt5.QtCore import Qt
 from datetime import date
 from PyQt5.QtWidgets import * 
 import pickle
+from DialogBox import DialogBox
 
 
 # Loading the model
@@ -258,13 +259,16 @@ class Ui_MainWindow(object):
         try:
             prediction = model.predict([data])
             output = round(prediction[0], 2)
+
             if output < 0:
-                print("Sorry! You won't be able to sell this car...")
+                message = ("Sorry! You won't be able to sell this car...")
             else:
-                print(f"You can sell this car for ₹{str(output)} Lakhs 🙌")
+                message = (f"You can sell this car for ₹{str(output)} Lakhs 🙌")
 
         except:
-            print("Oops🙄 Something went wrong\nPlease Try Again")
+            message = ("Oops🙄 Something went wrong\nPlease Try Again")
+
+        self.openDialogBox(message)
 
 
 
@@ -279,6 +283,15 @@ class Ui_MainWindow(object):
         self.predict.setFont(font)
         self.predict.setObjectName("predict")
         self.predict.clicked.connect(self.predictData)
+
+
+    def openDialogBox(self, message):
+        self.dialog = QtWidgets.QDialog()
+        self.dialogBox = DialogBox()
+        self.dialogBox.setupUi(self.dialog)
+        self.dialogBox.ok_btn.clicked.connect(lambda:self.dialog.close())
+        self.dialog.show()
+        self.dialogBox.info_label.setText(message)
 
 
     def retranslateUi(self, MainWindow):
