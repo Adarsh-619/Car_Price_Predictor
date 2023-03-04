@@ -77,7 +77,7 @@ def stylingComponents():
                 }
                 .st-d1 {
                     font-size: 20px;
-                    color: white;
+                    color: black;
                 }
 
                 div.stAlert p {
@@ -119,7 +119,7 @@ def inputData():
         Transmission = 1
 
 
-    if(st.button("Estimate Price", key="predict", )):
+    if(st.button("Estimate Price", key="predict")):
         try:
             prediction = model.predict([[Years, Present_Price, Kms_Driven, Fuel_Type, Seller_Type, Transmission, Owner]])
             output = round(prediction[0], 2)
